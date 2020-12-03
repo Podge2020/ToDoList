@@ -12,5 +12,51 @@ db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 db.once('open', function(){
     //your tutorial and new code go here. 
     console.log("We're connected");
-    //schema
-}); 
+   
+
+
+//SCHEMAS HERE
+const kittySchema = new mongoose.Schema({
+    name : String
+});
+
+
+//
+kittySchema.methods.speak = function() {
+    let greeting;
+    if (this.name){
+        greeting = "Meow name is " + this.name;
+    } else {
+        greeting = "I don't have a name";
+    }
+    console.log(greeting);
+}
+//model
+const Kitten = mongoose.model('Kitten', kittySchema);
+//documents 
+const silence = new Kitten ({name: "Silence"});
+console.log(silence.name);
+const fluffy = new Kitten({name : "Fluffy"});
+
+fluffy.speak();
+silence.speak();
+
+//save after creating/ updating
+fluffy.save(function(err, cat){
+    if (err) return console.error(err);
+    cat.speak();
+});
+silence.save(function(err, cat){
+    if (err) return console.error(err);
+    cat.speak();
+});
+//static method- attached directly to our model/class
+
+Kitten.find(function(err, kittens){
+    if (err) return console.error(err);
+    console.log(kittens);
+})
+
+
+
+});
