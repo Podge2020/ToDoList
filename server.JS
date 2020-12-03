@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
 //access the connect method of the mongoose object
 //pass in the localhost test database
 //and some options inside of another object
-mongoose.connect('mongodb+srv://Podge2020:<password>@gettingstartedcluster.iq7rw.mongodb.net/<dbname>?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
+const mongoDB = 'mongodb+srv://Podge2020:NebNick2020@gettingstartedcluster.iq7rw.mongodb.net/ToDoListDB?retryWrites=true&w=majority';
+mongoose.connect(mongoDB);
 
 //make another constant variable called db
 //and we set it equal to the connection property of our mongoose object 
