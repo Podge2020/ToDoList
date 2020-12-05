@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const mongoDB = 'mongodb+srv://Podge2020:NebNick2020@gettingstartedcluster.iq7rw.mongodb.net/ToDoListDB?retryWrites=true&w=majority'; 
 
+//variable stores and gives access to MODELS 
+var Task = require('./models/ToDoTask.js');
+var List = require('./models/ToDo.js'); 
+
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
     if(err) return console.error(err);
     console.log('Connected to database'); 
@@ -13,50 +17,28 @@ db.once('open', function(){
     //your tutorial and new code go here. 
     console.log("We're connected");
    
-
-
-//SCHEMAS HERE
-const kittySchema = new mongoose.Schema({
-    name : String
+//create new Task using Task Model 
+let task1 = new Task({
+    taskName : "Homework", 
+    assignee : "Podge", 
+    priority : 'High',
+    status : false 
 });
 
-
-//
-kittySchema.methods.speak = function() {
-    let greeting;
-    if (this.name){
-        greeting = "Meow name is " + this.name;
-    } else {
-        greeting = "I don't have a name";
-    }
-    console.log(greeting);
-}
-//model
-const Kitten = mongoose.model('Kitten', kittySchema);
-//documents 
-const silence = new Kitten ({name: "Silence"});
-console.log(silence.name);
-const fluffy = new Kitten({name : "Fluffy"});
-
-fluffy.speak();
-silence.speak();
-
-//save after creating/ updating
-fluffy.save(function(err, cat){
+task1.save(function(err, task){
     if (err) return console.error(err);
-    cat.speak();
-});
-silence.save(function(err, cat){
-    if (err) return console.error(err);
-    cat.speak();
-});
-//static method- attached directly to our model/class
+    console.log(task); 
+}); 
 
-Kitten.find(function(err, kittens){
-    if (err) return console.error(err);
-    console.log(kittens);
-})
+var myList = new List ({
+    name : "Podge's List", 
+    items : [
+        {
+            item : item1._id
+        }
+    ], 
+}); 
 
-
+myList.save(); //can add callback error like task1 example above 
 
 });
